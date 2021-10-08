@@ -6,6 +6,7 @@ use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
@@ -20,24 +21,24 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *   min = 5,
+     *   max = 70,
+     *   minMessage = "Ce titre est trop court",
+     *   maxMessage = "Ce titre est trop long"
+     * )
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=3000)
      * @Assert\Length(
-     * min=3,
-     * minMessage = "Ce titre est trop courte. Il doit avoir 3 caractères ou plus."
+     *   min = 10,
+     *   max = 3000,
+     *   minMessage = "Cet article est trop court",
+     *   maxMessage = "Cet article est trop long"
      * )
-     */
-    private $author;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     *@Assert\Length(
-     * min=3,
-     * minMessage = "Ce titre est trop courte. Il doit avoir 3 caractères ou plus."
-     * )
+     * @Assert\NotBlank(message = "Le contenu ne peut être vide.")
      */
     private $content;
 
@@ -45,6 +46,12 @@ class Article
      * @ORM\Column(type="boolean")
      */
     private $visible;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Le contenu ne peut être vide.")
+     */
+    private $author;
 
     public function getId(): ?int
     {
@@ -59,18 +66,6 @@ class Article
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
 
         return $this;
     }
@@ -95,6 +90,18 @@ class Article
     public function setVisible(bool $visible): self
     {
         $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
