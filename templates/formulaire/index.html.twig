@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title) }}
+            {{ form_label(form.author) }}
+            {{ form_widget(form.author) }}
+            {{ form_label(form.content) }}
+            {{ form_widget(form.content) }}
+            {{ form_row(form.visible) }}
+            {{ form_rest(form) }}
+            <button type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+
+{% endblock %}
